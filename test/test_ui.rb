@@ -9,4 +9,14 @@ class TestUI < Minitest::Test
                   "X     0     X",
                   "X           X"].join("\n"), output)
   end
+
+  def test_drawing_a_cell_at_1_0_on_11x3_grid
+    ui = GameOfLife::UI.new(11, 3)
+
+    output = ui.draw([{:x => 1, :y => 0 }])
+
+    assert_equal(["X           X",
+                  "X      0    X",
+                  "X           X"].join("\n"), output)
+  end
 end
