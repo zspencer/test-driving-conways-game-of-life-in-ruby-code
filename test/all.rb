@@ -24,3 +24,4 @@ $LOAD_PATH.unshift(path_to_test)
 
 require 'test_a_con_at_0_0_at_end_of_day'
 require 'test_a_con_at_10_10_at_end_of_day'
+require 'test_ui'
