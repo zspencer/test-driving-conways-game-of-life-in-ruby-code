@@ -13,7 +13,8 @@ module GameOfLife
     population.select { |c|
       c[:x] == 1  ||
       c[:x] == -1 ||
-      c[:y] == -1
+      c[:y] == -1 ||
+      c[:y] == 1
     }.length
   end
 end
