@@ -72,4 +72,12 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
 
     refute_alive(target_con, next_generation(cons))
   end
+
+  def test_dies_even_if_there_are_three_of_the_same_cell
+    cons = [ target_con,
+             target_con,
+             target_con]
+
+    refute_alive(target_con, next_generation(cons))
+  end
 end
