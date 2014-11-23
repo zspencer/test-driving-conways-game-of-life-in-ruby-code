@@ -1,12 +1,9 @@
 module GameOfLife
   NEIGHBORS_NEEDED_TO_SURVIVE = (2..3)
+  NEIGHBORS_NEEDED_TO_BE_BORN = 3
 
   def self.next_generation(population)
-    births = [{ :x => 0, :y => 0}].select do |con|
-      count_neighbors(con, population) == 3
-    end
-
-    survivors(population) + births
+    survivors(population) + births(population)
   end
 
   def self.survivors(population)
@@ -18,6 +15,16 @@ module GameOfLife
   def self.survives?(con, population)
     neighbors = count_neighbors(con, population)
     NEIGHBORS_NEEDED_TO_SURVIVE.cover?(neighbors)
+  end
+
+  def self.births(population)
+    [{ :x => 0, :y => 0}].select do |con|
+      born?(con, population)
+    end
+  end
+
+  def self.born?(con, population)
+    count_neighbors(con, population) == NEIGHBORS_NEEDED_TO_BE_BORN
   end
 
   def self.count_neighbors(con, population)
