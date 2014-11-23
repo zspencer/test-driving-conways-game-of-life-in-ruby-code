@@ -13,9 +13,17 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     GameOfLife.next_day(cons)
   end
 
+  def assert_alive(con, population)
+    assert population.include?(con), "Con #{target_con} was supposed to be alive and was not found in #{population}!"
+  end
+
+  def refute_alive(con, population)
+    refute population.include?(con), "Con #{target_con} was supposed to be dead but was found in #{population}"
+  end
+
   def test_dies_when_standing_alone
     cons = [ target_con ]
-    refute next_day(cons).include?(target_con), "Con #{target_con} was found!"
+    refute_alive(target_con, next_day(cons))
   end
 
   def test_stays_alive_with_two_neighbors
@@ -23,7 +31,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => 1,  :y => 0 },
              { :x => -1, :y => 0 } ]
 
-    assert next_day(cons).include?(target_con), "Con #{target_con} was not found!"
+    assert_alive(target_con, next_day(cons))
   end
 
   def test_dies_with_four_neighbors
@@ -33,7 +41,6 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => -1, :y => 0  },
              { :x => -1, :y => -1 } ]
 
-
-    refute next_day(cons).include?(target_con), "Con #{target_con} was found!"
+    refute_alive(target_con, next_day(cons))
   end
 end
