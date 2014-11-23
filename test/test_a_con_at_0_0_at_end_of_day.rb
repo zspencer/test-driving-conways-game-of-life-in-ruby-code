@@ -70,4 +70,17 @@ class TestAConAtZeroZeroAtEndOfDay < ConTest
 
     assert_alive(target_con, next_generation(cons))
   end
+
+  def test_only_one_is_born_if_there_are_three_neighbors
+    cons = [ { :x => 1, :y => 0 },
+             { :x => -1, :y => 0 },
+             { :x => -1, :y => 1 } ]
+
+    target_cons = next_generation(cons).select do |con|
+      con == target_con
+    end
+
+    assert_equal 1, target_cons.length
+  end
+
 end
