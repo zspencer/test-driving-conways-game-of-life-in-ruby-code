@@ -16,10 +16,8 @@ module GameOfLife
   end
 
   def self.neighbors?(con)
-      con[:x] == 1  ||
-      con[:x] == -1 ||
-      con[:y] == -1 ||
-      con[:y] == 1
+      con[:x] <= 1 && con[:x] >= -1 &&
+      con[:y] <= 1 && con[:y] >= -1
   end
 end
 
