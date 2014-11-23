@@ -6,9 +6,11 @@ module GameOfLife
     end
 
     def draw(population)
-      ["X           X",
-       "X     0     X",
-       "X           X"].join("\n")
+      ["           ",
+       "     0     ",
+       "           "].map do |row|
+         "X#{row}X"
+       end.join("\n")
     end
   end
 
