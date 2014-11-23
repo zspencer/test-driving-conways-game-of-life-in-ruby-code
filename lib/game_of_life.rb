@@ -1,23 +1,14 @@
 module GameOfLife
-  class UI
-    def initialize(width, height)
-      @width = width
-      @height = height
-    end
-
-    def draw(population)
-      (0...@height).map do |y|
-        (0...@width).map do |x|
-          possible_con = { :x => x - (@width / 2), :y => y - (@height / 2)}
-          if population.include?(possible_con)
-            "0"
-          else
-            " "
-          end
+  module UI
+    def self.draw(population, width, height)
+      (0...height).map do |y|
+        (0...width).map do |x|
+          possible_con = { :x => x - (width / 2), :y => y - (height / 2)}
+          population.include?(possible_con) ? "0" : " "
         end.join("")
       end.map do |row|
-         "X#{row}X"
-       end.join("\n")
+        "X#{row}X"
+      end.join("\n")
     end
   end
 
