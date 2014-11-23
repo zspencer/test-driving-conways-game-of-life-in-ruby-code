@@ -36,11 +36,7 @@ module GameOfLife
   end
 
   def self.neighbors?(con_a, con_b)
-    con_a != con_b &&
-    con_a[:x] <= con_b[:x] + 1 &&
-    con_a[:x] >= con_b[:x] -1 &&
-    con_a[:y] <= con_b[:x] + 1 &&
-    con_a[:y] >= con_b[:x] -1
+    neighbors_of(con_a).include?(con_b)
   end
 
   def self.births_near(con, population, births)
@@ -54,7 +50,7 @@ module GameOfLife
     (-1..1).each do |x|
       (-1..1).each do |y|
         neighbor = { :x => con[:x] + x, :y => con[:y] + y }
-        neighbors.push(neighbor)
+        neighbors.push(neighbor) if neighbor != con
       end
     end
     neighbors
