@@ -11,7 +11,9 @@ module GameOfLife
 
   def self.count_neighbors(population)
     population.select { |c|
-      c[:x] == 1  || c[:x] == -1
+      c[:x] == 1  ||
+      c[:x] == -1 ||
+      c[:y] == -1
     }.length
   end
 end
