@@ -25,4 +25,15 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
 
     assert next_day(cons).include?(target_con), "Con #{target_con} was not found!"
   end
+
+  def test_dies_with_four_neighbors
+    cons = [ target_con,
+             { :x => 1,  :y => -1 },
+             { :x => 1,  :y => 0  },
+             { :x => -1, :y => 0  },
+             { :x => -1, :y => -1 } ]
+
+
+    refute next_day(cons).include?(target_con), "Con #{target_con} was found!"
+  end
 end
