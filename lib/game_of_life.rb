@@ -10,12 +10,16 @@ module GameOfLife
   end
 
   def self.count_neighbors(population)
-    population.select { |c|
-      c[:x] == 1  ||
-      c[:x] == -1 ||
-      c[:y] == -1 ||
-      c[:y] == 1
+    population.select { |con|
+      neighbors?(con)
     }.length
+  end
+
+  def self.neighbors?(con)
+      con[:x] == 1  ||
+      con[:x] == -1 ||
+      con[:y] == -1 ||
+      con[:y] == 1
   end
 end
 
