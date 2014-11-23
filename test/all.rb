@@ -26,7 +26,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     refute_alive(target_con, next_day(cons))
   end
 
-  def test_stays_alive_with_two_neighbors
+  def test_stays_alive_with_west_and_east_neighbors
     cons = [ target_con,
              { :x => 1,  :y => 0 },
              { :x => -1, :y => 0 } ]
@@ -44,7 +44,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     refute_alive(target_con, next_day(cons))
   end
 
-  def test_stays_alive_with_two_neighbors_even_when_more_cells_are_in_the_population
+  def test_stays_alive_with_east_and_west_neighbors_despite_other_cons_in_population
     cons = [ target_con,
              { :x => 1,  :y => -1 },
              { :x => 1,  :y => 0  },
@@ -54,7 +54,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     assert_alive(target_con, next_day(cons))
   end
 
-  def test_stays_alive_with_two_neighbors_on_the_y_axis_even_when_more_cells_are_in_the_population
+  def test_stays_alive_with_north_and_south_neighbors_despite_other_cons_in_population
     cons = [ target_con,
              { :x => 0,  :y => -1 },
              { :x => 0,  :y => 1  },
