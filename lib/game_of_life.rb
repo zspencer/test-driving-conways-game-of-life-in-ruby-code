@@ -3,12 +3,16 @@ module GameOfLife
     def self.draw(population, width, height)
       (0...height).map do |y|
         (0...width).map do |x|
-          possible_con = { :x => x - (width / 2), :y => y - (height / 2)}
-          population.include?(possible_con) ? "0" : " "
+          location_to_ui_element({ :x => x, :y => y }, population, width, height)
         end.join("")
       end.map do |row|
         "X#{row}X"
       end.join("\n")
+    end
+
+    def self.location_to_ui_element(location, population, width, height)
+      con = { :x => location[:x] - (width / 2), :y => location[:y] - (height / 2)}
+      population.include?(con) ? "0" : " "
     end
   end
 
