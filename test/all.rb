@@ -43,4 +43,14 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
 
     refute_alive(target_con, next_day(cons))
   end
+
+  def test_stays_alive_with_two_neighbors_even_when_more_cells_are_in_the_population
+    cons = [ target_con,
+             { :x => 1,  :y => -1 },
+             { :x => 1,  :y => 0  },
+             { :x => -3, :y => 0  },
+             { :x => -3, :y => -1 } ]
+
+    assert_alive(target_con, next_day(cons))
+  end
 end
