@@ -1,6 +1,8 @@
 module GameOfLife
+  NEIGHBORS_NEEDED_TO_SURVIVE = (2..3)
+
   def self.next_day(cons)
-    if cons.length > 2 && cons.length < 4
+    if NEIGHBORS_NEEDED_TO_SURVIVE.cover?(cons.length)
       cons
     else
       []
