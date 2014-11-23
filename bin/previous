@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+next_commit=$(git rev-list --reverse HEAD..master | head -1)
+if [ -z $next_commit ]; then
+  echo "You're already at the most recent commit!"
+  exit 1
+fi
+
+git checkout $next_commit
+git log -n1
+bin/test

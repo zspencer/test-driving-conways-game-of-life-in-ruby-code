@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+git checkout HEAD~1
+git log -n1
+bin/test
