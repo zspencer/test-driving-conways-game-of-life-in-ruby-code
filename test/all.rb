@@ -9,8 +9,8 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     { :x => 0, :y => 0 }
   end
 
-  def next_day(cons)
-    GameOfLife.next_day(cons)
+  def next_generation(cons)
+    GameOfLife.next_generation(cons)
   end
 
   def assert_alive(con, population)
@@ -23,7 +23,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
 
   def test_dies_when_standing_alone
     cons = [ target_con ]
-    refute_alive(target_con, next_day(cons))
+    refute_alive(target_con, next_generation(cons))
   end
 
   def test_stays_alive_with_west_and_east_neighbors
@@ -31,7 +31,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => 1,  :y => 0 },
              { :x => -1, :y => 0 } ]
 
-    assert_alive(target_con, next_day(cons))
+    assert_alive(target_con, next_generation(cons))
   end
 
   def test_dies_with_four_neighbors
@@ -41,7 +41,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => -1, :y => 0  },
              { :x => -1, :y => -1 } ]
 
-    refute_alive(target_con, next_day(cons))
+    refute_alive(target_con, next_generation(cons))
   end
 
   def test_stays_alive_with_east_and_west_neighbors_despite_other_cons_in_population
@@ -51,7 +51,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => -3, :y => 3  },
              { :x => -3, :y => -3 } ]
 
-    assert_alive(target_con, next_day(cons))
+    assert_alive(target_con, next_generation(cons))
   end
 
   def test_stays_alive_with_north_and_south_neighbors_despite_other_cons_in_population
@@ -61,7 +61,7 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => -3, :y => 3  },
              { :x => -3, :y => -3 } ]
 
-    assert_alive(target_con, next_day(cons))
+    assert_alive(target_con, next_generation(cons))
   end
 
   def test_dies_with_no_neighors_even_if_non_neighbors_are_east
@@ -70,6 +70,6 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
              { :x => -5,  :y => 0  },
              { :x => -5,  :y => 1  }]
 
-    refute_alive(target_con, next_day(cons))
+    refute_alive(target_con, next_generation(cons))
   end
 end

@@ -1,7 +1,7 @@
 module GameOfLife
   NEIGHBORS_NEEDED_TO_SURVIVE = (2..3)
 
-  def self.next_day(cons)
+  def self.next_generation(cons)
     if NEIGHBORS_NEEDED_TO_SURVIVE.cover?(count_neighbors(cons))
       cons
     else
