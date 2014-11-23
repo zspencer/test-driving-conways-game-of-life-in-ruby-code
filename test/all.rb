@@ -48,8 +48,8 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     cons = [ target_con,
              { :x => 1,  :y => -1 },
              { :x => 1,  :y => 0  },
-             { :x => -3, :y => 0  },
-             { :x => -3, :y => -1 } ]
+             { :x => -3, :y => 3  },
+             { :x => -3, :y => -3 } ]
 
     assert_alive(target_con, next_day(cons))
   end
@@ -58,8 +58,8 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
     cons = [ target_con,
              { :x => 0,  :y => -1 },
              { :x => 0,  :y => 1  },
-             { :x => -3, :y => 0  },
-             { :x => -3, :y => -1 } ]
+             { :x => -3, :y => 3  },
+             { :x => -3, :y => -3 } ]
 
     assert_alive(target_con, next_day(cons))
   end
