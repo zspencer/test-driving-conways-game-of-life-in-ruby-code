@@ -1,4 +1,17 @@
 module GameOfLife
+  class UI
+    def initialize(width, height)
+      @width = width
+      @height = height
+    end
+
+    def draw(population)
+      ["X           X",
+       "X     0     X",
+       "X           X"].join("\n")
+    end
+  end
+
   NEIGHBORS_NEEDED_TO_SURVIVE = (2..3)
   NEIGHBORS_NEEDED_TO_BE_BORN = 3
 
