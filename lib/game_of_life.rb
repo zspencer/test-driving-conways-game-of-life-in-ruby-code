@@ -19,14 +19,14 @@ module GameOfLife
 
   def self.births(population)
     population.reduce([]) do |births, con|
-      births + births_near(con, population).reject do |baby|
-        births.include?(baby)
-      end
+      births + births_near(con, population, births)
     end
   end
 
-  def self.born?(con, population)
-    count_neighbors(con, population) == NEIGHBORS_NEEDED_TO_BE_BORN
+  def self.born?(con, population, births)
+    count_neighbors(con, population) == NEIGHBORS_NEEDED_TO_BE_BORN &&
+      !births.include?(con) &&
+      !population.include?(con)
   end
 
   def self.count_neighbors(con, population)
@@ -43,18 +43,18 @@ module GameOfLife
     con_a[:y] >= con_b[:x] -1
   end
 
-  def self.births_near(con, population)
-    unborn_neighbors_of(con, population).select do |neighbor|
-      born?(neighbor, population)
+  def self.births_near(con, population, births)
+    neighbors_of(con).select do |neighbor|
+      born?(neighbor, population, births)
     end
   end
 
-  def self.unborn_neighbors_of(con, population)
+  def self.neighbors_of(con)
     neighbors = []
     (-1..1).each do |x|
       (-1..1).each do |y|
-        dead_neighbor = { :x => con[:x] + x, :y => con[:y] + y }
-        neighbors.push(dead_neighbor) unless population.include?(dead_neighbor)
+        neighbor = { :x => con[:x] + x, :y => con[:y] + y }
+        neighbors.push(neighbor)
       end
     end
     neighbors
