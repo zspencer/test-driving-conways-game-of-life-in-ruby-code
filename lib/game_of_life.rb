@@ -19,7 +19,9 @@ module GameOfLife
 
   def self.births(population)
     population.reduce([]) do |births, con|
-      births + births_near(con, population)
+      births + births_near(con, population).reject do |baby|
+        births.include?(baby)
+      end
     end
   end
 
