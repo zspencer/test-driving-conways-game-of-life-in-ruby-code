@@ -63,4 +63,13 @@ class TestAConAtZeroZeroAtEndOfDay < Minitest::Test
 
     assert_alive(target_con, next_day(cons))
   end
+
+  def test_dies_with_no_neighors_even_if_non_neighbors_are_east
+    cons = [ target_con,
+             { :x => -5,  :y => -1 },
+             { :x => -5,  :y => 0  },
+             { :x => -5,  :y => 1  }]
+
+    refute_alive(target_con, next_day(cons))
+  end
 end
