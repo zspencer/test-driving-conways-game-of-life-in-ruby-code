@@ -10,19 +10,32 @@
 21_version = 2.1.5
 21_env = RBENV_VERSION=$(21_version)
 
+rerun = fswatch -o . | xargs -n1 -I{}
 
 test_all = bundle exec ruby test/all.rb
 test: test-187 test-193 test-20 test-21
 
+
+retest-187:
+	$(rerun) make test-187
+
 test-187:
 	$(187_env) $(test_all)
+
+retest-193:
+	$(rerun) make test-193
 
 test-193:
 	$(193_env) $(test_all)
 
+retest-20:
+	$(rerun) make test-20
+
 test-20:
 	$(20_env) $(test_all)
 
+retest-21:
+	$(rerun) make test-21
 test-21:
 	$(21_env) $(test_all)
 
