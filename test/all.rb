@@ -6,6 +6,9 @@ class GameOfLife
 
   def run!()
   end
+
+  def world()
+  end
 end
 
 class Iterator
