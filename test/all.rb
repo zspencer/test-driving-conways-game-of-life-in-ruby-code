@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 
 class TestGameOfLife < MiniTest::Test
-  def test_failing_test
-    assert_equal(1, 2)
+  def test_an_empty_world_after_a_single_iteration
+    game_of_life = GameOfLife.new([], Iterator.new(1))
+    game_of_life.run!()
+    assert_equal(game_of_life.world, [])
   end
 end
