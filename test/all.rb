@@ -5,7 +5,8 @@ class GameOfLife
 end
 
 class Iterator
-
+  def initialize(quantity)
+  end
 end
 
 class TestGameOfLife < MiniTest::Test
