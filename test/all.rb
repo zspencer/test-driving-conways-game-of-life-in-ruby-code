@@ -8,6 +8,7 @@ class GameOfLife
   end
 
   def world()
+    []
   end
 end
 
