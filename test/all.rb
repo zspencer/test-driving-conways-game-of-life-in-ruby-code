@@ -3,6 +3,9 @@ require 'minitest/autorun'
 class GameOfLife
   def initialize(world, iterator)
   end
+
+  def run!()
+  end
 end
 
 class Iterator
