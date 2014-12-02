@@ -4,6 +4,10 @@ class GameOfLife
 
 end
 
+class Iterator
+
+end
+
 class TestGameOfLife < MiniTest::Test
   def test_an_empty_world_after_a_single_iteration
     game_of_life = GameOfLife.new([], Iterator.new(1))
