@@ -7,12 +7,19 @@ class GameOfLife
   end
 
   def run!()
-    @world = @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION ? @world : []
+    @world = (survives?() ? @world : [])
   end
 
   def world()
     @world
   end
+
+  private
+
+  def survives?
+    @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION
+  end
+
 end
 
 class TurnTaker
