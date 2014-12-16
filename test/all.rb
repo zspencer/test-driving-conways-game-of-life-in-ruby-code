@@ -26,13 +26,25 @@ class World
   end
 
   def next_generation
-    next_cons = @cons.select do |con|
-      con.survives?(neighbors(con))
-    end + empty_spaces.select do |space|
-      space.born?(neighbors(space))
-    end.uniq
+    next_cons = survivors + newborns
+    World.new(next_cons.uniq)
+  end
 
-    World.new(next_cons)
+  def to_a
+    @cons.map(&:to_h)
+  end
+
+  private
+  def survivors
+    @cons.select do |con|
+      con.survives?(neighbors(con))
+    end
+  end
+
+  def newborns
+    empty_spaces.select do |space|
+      space.born?(neighbors(space))
+    end
   end
 
   def neighbors(current)
@@ -47,9 +59,6 @@ class World
     end
   end
 
-  def to_a
-    @cons.map(&:to_h)
-  end
 end
 
 class Con
