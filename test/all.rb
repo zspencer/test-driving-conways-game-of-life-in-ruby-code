@@ -6,10 +6,11 @@ class GameOfLife
   end
 
   def run!()
+    @world = @world.length == 3 ? @world : []
   end
 
   def world()
-    @world.length == 3 ? @world : []
+    @world
   end
 end
 
