@@ -38,7 +38,12 @@ class Con
   end
 
   def neighbor?(con)
-    ((-1..1).include?(con.location[:x]) || (-1..1).include?(con.location[:y])) && !(con.location[:x] == 0 && con.location[:y] == 0)
+    ((-1..1).include?(con.location[:x]) || (-1..1).include?(con.location[:y])) &&
+      !(self == con)
+  end
+
+  def ==(other)
+    location[:x] == other.location[:x] && location[:y] == other.location[:y]
   end
 end
 
