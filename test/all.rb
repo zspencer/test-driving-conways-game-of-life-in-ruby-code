@@ -1,5 +1,8 @@
 require 'minitest/autorun'
 $LOAD_PATH.unshift(File.expand_path(File.join(__FILE__, "..", "..", "lib")))
+Dir.glob("**/test_*.rb").each do |f|
+  require File.expand_path(f)
+end
 require 'game_of_life'
 
 class TestGameOfLife < MiniTest::Test
