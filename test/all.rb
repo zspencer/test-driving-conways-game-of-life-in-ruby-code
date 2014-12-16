@@ -5,7 +5,9 @@ class GameOfLife
   MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
 
   def initialize(world, iterator)
-    @world = world
+    @world = world.map do |con|
+      Con.new(con)
+    end
   end
 
   def run!()
@@ -13,7 +15,7 @@ class GameOfLife
   end
 
   def world()
-    @world
+    @world.map(&:location)
   end
 
   private
@@ -26,7 +28,7 @@ class GameOfLife
   def neighbors
     current = Con.new({ :x => 0, :y => 0 })
     @world.select() do |con|
-      current.neighbor?(Con.new(con))
+      current.neighbor?(con)
     end
   end
 end
