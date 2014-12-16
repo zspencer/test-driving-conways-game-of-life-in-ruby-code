@@ -9,4 +9,11 @@ class TestGameOfLifeUI < MiniTest::Test
     output = ui.draw([{:x => 0, :y => 0}])
     assert_equal(["X"].join("\n"), output)
   end
+
+  def test_drawing_an_empty_1_by_1_world
+    ui = GameOfLife::UI.new(1,1)
+
+    output = ui.draw([])
+    assert_equal([" "].join("\n"), output)
+  end
 end
