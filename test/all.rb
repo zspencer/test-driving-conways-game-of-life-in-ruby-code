@@ -24,7 +24,9 @@ class GameOfLife
   end
 
   def number_of_neighbors
-    @world.length - 1
+    @world.select() do |con|
+      (-1..1).include?(con[:x]) || (-1..1).include?(con[:y])
+    end.length - 1
   end
 end
 
