@@ -19,14 +19,14 @@ class GameOfLife
   private
 
   def survives?
-    number_of_neighbors() == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
-      number_of_neighbors() == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
+    neighbors().length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
+      neighbors().length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
   end
 
-  def number_of_neighbors
+  def neighbors
     @world.select() do |con|
-      (-1..1).include?(con[:x]) || (-1..1).include?(con[:y])
-    end.length - 1
+      ((-1..1).include?(con[:x]) || (-1..1).include?(con[:y])) && !(con[:x] == 0 && con[:y] == 0)
+    end
   end
 end
 
