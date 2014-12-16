@@ -24,14 +24,36 @@ class GameOfLife
   end
 
   class TurnTaker
-    def initialize(quantity)
+    def initialize(quantity = false)
       @quantity = quantity
     end
 
     def run
-      @quantity.times do
-        yield
+      if @quantity
+        @quantity.times do
+          yield
+        end
+      else
+        while true
+          yield
+        end
       end
     end
+  end
+end
+
+if __FILE__ == $0
+  starting_cons = []
+  (0..40).each do |x|
+    (0..20).each do |y|
+      starting_cons.push({:x => x, :y => y}) if rand(2) == 1
+    end
+  end
+  require 'terminfo'
+  lines, cols = TermInfo.screen_size()
+  ui = GameOfLife::UI.new(cols, lines)
+  game_of_life = GameOfLife.new(starting_cons, GameOfLife::TurnTaker.new())
+  game_of_life.run! do |world|
+    puts ui.draw(world)
   end
 end
