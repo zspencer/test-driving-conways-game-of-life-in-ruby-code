@@ -54,8 +54,15 @@ class Con
   end
 
   def neighbor?(con)
-    ((location[:x] - 1.. location[:x] + 1).include?(con.location[:x]) || (location[:y] - 1.. location[:y] + 1).include?(con.location[:y])) &&
-      !(self == con)
+    !(self == con) && (near?(:x, con) || near?(:y, con))
+  end
+
+  def near?(axis, con)
+    near(axis).include?(con.location[axis])
+  end
+
+  def near(axis)
+    (location[axis] -1 .. location[axis] +1)
   end
 
   def survives?(world)
