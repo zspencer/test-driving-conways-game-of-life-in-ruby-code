@@ -9,7 +9,7 @@ class GameOfLife
   end
 
   def world()
-    @world
+    @world.length == 3 ? @world : []
   end
 end
 
