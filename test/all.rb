@@ -42,11 +42,9 @@ class World
   end
 
   def empty_spaces
-    spaces = []
-    @cons.each do |c|
-      spaces = spaces + c.around
+    @cons.reduce([]) do |spaces, c|
+      spaces + c.around
     end
-    spaces
   end
 
   def to_a
@@ -79,13 +77,12 @@ class Con
   end
 
   def around
-    around = []
-    near(:x).each do |x|
+    near(:x).reduce([]) do |nearby, x|
       near(:y).each do |y|
-        around.push(Con.new({:x => x, :y => y}))
+        nearby.push(Con.new({:x => x, :y => y}))
       end
+      nearby
     end
-    around
   end
 
   def ==(other)
