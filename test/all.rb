@@ -1,12 +1,13 @@
 require 'minitest/autorun'
 
 class GameOfLife
+  NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION = 3
   def initialize(world, iterator)
     @world = world
   end
 
   def run!()
-    @world = @world.length == 3 ? @world : []
+    @world = @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION ? @world : []
   end
 
   def world()
