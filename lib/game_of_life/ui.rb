@@ -7,12 +7,11 @@ class GameOfLife
 
     def draw(world)
       output = []
-      (0...@height).each do |y|
-        row = []
-        (0...@width).each do |x|
+      output = (0...@height).reduce([]) do |output, y|
+        row = (0...@width).reduce([]) do |row, x|
           row.push(char(world, { :x => x, :y => y }))
-        end
-        output.push(row.join(""))
+        end.join("")
+        output.push(row)
       end
       output.join("\n")
     end
