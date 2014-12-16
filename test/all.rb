@@ -80,4 +80,18 @@ class TestGameOfLife < MiniTest::Test
 
     refute(game_of_life.world.include?({:x => 3, :y => 3}), "The Con at 3,3 did survive!")
   end
+
+  def test_before_iteration_callback
+    iterations = []
+    starting_iteration = [{ :x => 2, :y => 2 }, { :x => 2, :y => 3 }, { :x => 2, :y => 4 }]
+    next_iteration     = [{ :x => 2, :y => 3 }, { :x => 1, :y => 3 }, { :x => 3, :y => 3 }]
+
+    expected_iterations = 5.times.map { [starting_iteration, next_iteration] }.flatten
+
+    game_of_life = setup_and_run_game_of_life(starting_iteration, 10) do |world|
+      iterations.push(world)
+    end
+
+    assert_equal expected_iterations, iterations
+  end
 end
