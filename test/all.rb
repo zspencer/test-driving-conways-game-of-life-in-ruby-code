@@ -7,7 +7,7 @@ require 'game_of_life'
 
 class TestGameOfLife < MiniTest::Test
   def setup_and_run_game_of_life(world, turns=1, &callback)
-    game_of_life = GameOfLife.new(world, TurnTaker.new(turns))
+    game_of_life = GameOfLife.new(world, GameOfLife::TurnTaker.new(turns))
     game_of_life.run!(&callback)
     game_of_life
   end
