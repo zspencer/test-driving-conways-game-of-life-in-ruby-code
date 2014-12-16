@@ -46,7 +46,7 @@ if __FILE__ == $0
   starting_cons = []
   (0..40).each do |x|
     (0..20).each do |y|
-      starting_cons.push({:x => x, :y => y}) if rand(2) == 1
+      starting_cons.push({:x => x, :y => y}) if rand(4) == 1
     end
   end
   require 'terminfo'
