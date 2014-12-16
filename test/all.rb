@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 
 class GameOfLife
-  NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION = 3
+  MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 3
+  MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
+
   def initialize(world, iterator)
     @world = world
   end
@@ -17,7 +19,12 @@ class GameOfLife
   private
 
   def survives?
-    @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION || @world.length == 4
+    number_of_neighbors() == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
+      number_of_neighbors() == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
+  end
+
+  def number_of_neighbors
+    @world.length - 1
   end
 end
 
