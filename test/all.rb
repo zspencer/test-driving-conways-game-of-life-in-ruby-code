@@ -141,6 +141,14 @@ class TestGameOfLife < MiniTest::Test
     assert(game_of_life.world.include?({:x => 3, :y => 4}), "The Con at 3,4 didn't survive!")
   end
 
+  def test_an_emtpy_space_at_3_4_with_three_neighbors_brings_a_con_to_life
+    starting_world = [{:x => 3, :y => 5}, { :x => 3, :y => 3 }, { :x => 4, :y => 4 }]
+
+    game_of_life = setup_and_run_game_of_life(starting_world)
+
+    assert(game_of_life.world.include?({:x => 3, :y => 4}), "The Con at 3,4 didn't survive!")
+  end
+
   def test_a_con_with_two_neighbors_dies_after_two_iterations
     starting_world = [{:x => 2, :y => 2}, { :x => 3, :y => 3 }, { :x => 4, :y => 4 }]
 
