@@ -17,7 +17,7 @@ class GameOfLife
   private
 
   def survives?
-    @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION
+    @world.length == NUMBER_OF_NEIGHBORS_TO_ALLOW_RESSURECTION || @world.length == 4
   end
 end
 
