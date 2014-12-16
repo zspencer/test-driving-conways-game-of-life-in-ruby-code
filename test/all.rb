@@ -148,4 +148,12 @@ class TestGameOfLife < MiniTest::Test
 
     refute(game_of_life.world.include?({:x => 3, :y => 3}), "The Con at 3,3 did survive!")
   end
+
+  def test_a_con_must_be_near_on_both_x_and_y_axis
+    starting_world = [{:x => 3, :y => 8}, { :x => 3, :y => 3 }, { :x => 4, :y => 4 }]
+
+    game_of_life = setup_and_run_game_of_life(starting_world)
+
+    refute(game_of_life.world.include?({:x => 3, :y => 3}), "The Con at 3,3 did survive!")
+  end
 end
