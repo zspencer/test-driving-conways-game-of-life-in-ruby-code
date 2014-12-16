@@ -24,9 +24,21 @@ class GameOfLife
   end
 
   def neighbors
+    current = Con.new({ :x => 0, :y => 0 })
     @world.select() do |con|
-      ((-1..1).include?(con[:x]) || (-1..1).include?(con[:y])) && !(con[:x] == 0 && con[:y] == 0)
+      current.neighbor?(Con.new(con))
     end
+  end
+end
+
+class Con
+  attr_reader :location
+  def initialize(coordinates)
+    @location = coordinates
+  end
+
+  def neighbor?(con)
+    ((-1..1).include?(con.location[:x]) || (-1..1).include?(con.location[:y])) && !(con.location[:x] == 0 && con.location[:y] == 0)
   end
 end
 
