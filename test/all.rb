@@ -68,4 +68,12 @@ class TestGameOfLife < MiniTest::Test
 
     assert(game_of_life.world.include?({:x => 0, :y => 0}), "The Con at 0,0 didn't survive!")
   end
+
+  def test_a_con_at_0_0_with_no_neighbors_but_two_non_neighbors_dies_after_a_single_iteration
+    starting_world = [{:x => 0, :y => 0}, { :x => 3, :y => 3 }, { :x => 4, :y => 4 }]
+
+    game_of_life = setup_and_run_game_of_life(starting_world)
+
+    refute(game_of_life.world.include?({:x => 0, :y => 0}), "The Con at 0,0 did survived!")
+  end
 end
