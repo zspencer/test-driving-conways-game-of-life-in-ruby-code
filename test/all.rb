@@ -27,10 +27,10 @@ class World
 
   def next_generation
     next_cons = @cons.select do |con|
-      con.survives?(self)
+      con.survives?(neighbors(con))
     end + empty_spaces.select do |space|
-      neighbors(space).length == 3
-    end
+      space.born?(neighbors(space))
+    end.uniq
 
     World.new(next_cons)
   end
@@ -41,22 +41,12 @@ class World
     end
   end
 
-  def around(c)
-    spaces = []
-    (c.location[:x] - 1 .. c.location[:x] + 1).each do |x|
-      (c.location[:y] - 1 .. c.location[:y] + 1).each do |y|
-        spaces.push({:x => x, :y => y})
-      end
-    end
-    spaces
-  end
-
   def empty_spaces
     spaces = []
     @cons.each do |c|
-      spaces = spaces + around(c)
+      spaces = spaces + c.around
     end
-    spaces.uniq.map { |s| Con.new(s) }
+    spaces
   end
 
   def to_a
@@ -67,27 +57,35 @@ end
 class Con
   MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 3
   MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
-
+  NUMBER_OF_NEIGHBORS_TO_BE_BORN = 3
   attr_reader :location
+
+
   def initialize(location)
     @location = location
   end
 
-  def neighbor?(con)
-    !(self == con) && (near?(:x, con) && near?(:y, con))
+  def survives?(neighbors)
+    neighbors.length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
+      neighbors.length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
   end
 
-  def near?(axis, con)
-    near(axis).include?(con.location[axis])
+  def born?(neighbors)
+    neighbors.length == NUMBER_OF_NEIGHBORS_TO_BE_BORN
   end
 
-  def near(axis)
-    (location[axis] -1 .. location[axis] +1)
+  def neighbor?(coord)
+    !(self == coord) && (near?(:x, coord) && near?(:y, coord))
   end
 
-  def survives?(world)
-    world.neighbors(self).length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
-      world.neighbors(self).length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
+  def around
+    around = []
+    near(:x).each do |x|
+      near(:y).each do |y|
+        around.push(Con.new({:x => x, :y => y}))
+      end
+    end
+    around
   end
 
   def ==(other)
@@ -95,6 +93,17 @@ class Con
   end
 
   alias_method :to_h, :location
+
+  private
+
+  def near?(axis, coord)
+    near(axis).include?(coord.location[axis])
+  end
+
+  def near(axis)
+    (location[axis] -1 .. location[axis] +1)
+  end
+
 end
 
 class TurnTaker
