@@ -9,11 +9,15 @@ class GameOfLife
       output = []
       (0...@width).each do |x|
         (0...@height).each do |y|
-          char = world.include?({ :x =>x, :y => y}) ? "X" : " "
-          output.push(char)
+          output.push(char(world, { :x => x, :y => y }))
         end
       end
       output.join("\n")
+    end
+
+    private
+    def char(world, location)
+      world.include?(location) ? "X" : " "
     end
   end
 end
