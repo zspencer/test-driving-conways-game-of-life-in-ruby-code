@@ -2,25 +2,42 @@ require 'minitest/autorun'
 
 class GameOfLife
   def initialize(world, iterator)
-    @world = world.map do |con|
+    cons = world.map do |con|
       Con.new(con)
     end
+    @world = World.new(cons)
   end
 
   def run!()
-    @world = @world.select do |con|
-      con.survives?(self)
-    end
+    @world = @world.next_generation
   end
 
   def world()
-    @world.map(&:location)
+    @world.to_a
+  end
+end
+
+class World
+  def initialize(cons)
+    @cons = cons
+  end
+
+  def next_generation
+    next_cons = @cons.select do |con|
+      con.survives?(self)
+    end
+
+    World.new(next_cons)
   end
 
   def neighbors(current)
-    @world.select() do |con|
+    @cons.select() do |con|
       current.neighbor?(con)
     end
+  end
+
+  def to_a
+    @cons.map(&:to_h)
   end
 end
 
@@ -29,8 +46,8 @@ class Con
   MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
 
   attr_reader :location
-  def initialize(coordinates)
-    @location = coordinates
+  def initialize(location)
+    @location = location
   end
 
   def neighbor?(con)
@@ -46,6 +63,8 @@ class Con
   def ==(other)
     location[:x] == other.location[:x] && location[:y] == other.location[:y]
   end
+
+  alias_method :to_h, :location
 end
 
 class TurnTaker
