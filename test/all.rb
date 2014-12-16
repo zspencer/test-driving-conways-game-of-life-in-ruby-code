@@ -1,9 +1,6 @@
 require 'minitest/autorun'
 
 class GameOfLife
-  MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 3
-  MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
-
   def initialize(world, iterator)
     @world = world.map do |con|
       Con.new(con)
@@ -12,19 +9,12 @@ class GameOfLife
 
   def run!()
     @world = @world.select do |con|
-      survives?(con)
+      con.survives?(self)
     end
   end
 
   def world()
     @world.map(&:location)
-  end
-
-  private
-
-  def survives?(current)
-    neighbors(current).length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
-      neighbors(current).length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
   end
 
   def neighbors(current)
@@ -35,6 +25,9 @@ class GameOfLife
 end
 
 class Con
+  MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 3
+  MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE = 2
+
   attr_reader :location
   def initialize(coordinates)
     @location = coordinates
@@ -43,6 +36,11 @@ class Con
   def neighbor?(con)
     ((location[:x] - 1.. location[:x] + 1).include?(con.location[:x]) || (location[:y] - 1.. location[:y] + 1).include?(con.location[:y])) &&
       !(self == con)
+  end
+
+  def survives?(world)
+    world.neighbors(self).length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
+      world.neighbors(self).length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
   end
 
   def ==(other)
