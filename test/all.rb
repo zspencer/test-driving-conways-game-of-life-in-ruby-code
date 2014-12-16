@@ -6,9 +6,9 @@ end
 require 'game_of_life'
 
 class TestGameOfLife < MiniTest::Test
-  def setup_and_run_game_of_life(world, turns=1)
+  def setup_and_run_game_of_life(world, turns=1, &callback)
     game_of_life = GameOfLife.new(world, TurnTaker.new(turns))
-    game_of_life.run!()
+    game_of_life.run!(&callback)
     game_of_life
   end
 
@@ -86,12 +86,21 @@ class TestGameOfLife < MiniTest::Test
     starting_iteration = [{ :x => 2, :y => 2 }, { :x => 2, :y => 3 }, { :x => 2, :y => 4 }]
     next_iteration     = [{ :x => 2, :y => 3 }, { :x => 1, :y => 3 }, { :x => 3, :y => 3 }]
 
-    expected_iterations = 5.times.map { [starting_iteration, next_iteration] }.flatten
+    expected_iterations = []
 
-    game_of_life = setup_and_run_game_of_life(starting_iteration, 10) do |world|
+    5.times do
+      expected_iterations.push(starting_iteration)
+      expected_iterations.push(next_iteration)
+    end
+
+    game_of_life = setup_and_run_game_of_life(starting_iteration, 8) do |world|
       iterations.push(world)
     end
 
-    assert_equal expected_iterations, iterations
+    expected_iterations.each_index do |iteration_num|
+      expected_iterations[0].each do |expected_con|
+        assert(iterations[0].include?(expected_con))
+      end
+    end
   end
 end

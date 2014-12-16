@@ -7,8 +7,9 @@ class GameOfLife
     @world = World.new(cons)
   end
 
-  def run!()
+  def run!(&callback)
     @iterator.run do
+      yield(@world.to_a) if block_given?
       @world = @world.next_generation
     end
   end
@@ -95,7 +96,13 @@ class Con
     location[:x] == other.location[:x] && location[:y] == other.location[:y]
   end
 
+  alias_method :eql?, :==
+
   alias_method :to_h, :location
+
+  def hash
+    [location[:x],location[:y]].hash
+  end
 
   private
 
@@ -106,7 +113,6 @@ class Con
   def near(axis)
     (location[axis] -1 .. location[axis] +1)
   end
-
 end
 
 class TurnTaker
