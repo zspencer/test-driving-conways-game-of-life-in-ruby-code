@@ -10,7 +10,9 @@ class GameOfLife
   end
 
   def run!()
-    @world = @world.next_generation
+    @iterator.run do
+      @world = @world.next_generation
+    end
   end
 
   def world()
@@ -71,6 +73,12 @@ end
 class TurnTaker
   def initialize(quantity)
     @quantity = quantity
+  end
+
+  def run
+    @quantity.times do
+      yield
+    end
   end
 end
 
