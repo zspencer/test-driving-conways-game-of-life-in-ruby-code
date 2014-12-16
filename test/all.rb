@@ -2,13 +2,14 @@ require 'minitest/autorun'
 
 class GameOfLife
   def initialize(world, iterator)
+    @world = world
   end
 
   def run!()
   end
 
   def world()
-    []
+    @world
   end
 end
 
