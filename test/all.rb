@@ -5,6 +5,7 @@ class GameOfLife
     cons = world.map do |con|
       Con.new(con)
     end
+    @iterator = iterator
     @world = World.new(cons)
   end
 
@@ -69,12 +70,13 @@ end
 
 class TurnTaker
   def initialize(quantity)
+    @quantity = quantity
   end
 end
 
 class TestGameOfLife < MiniTest::Test
-  def setup_and_run_game_of_life(world)
-    game_of_life = GameOfLife.new(world, TurnTaker.new(1))
+  def setup_and_run_game_of_life(world, turns=1)
+    game_of_life = GameOfLife.new(world, TurnTaker.new(turns))
     game_of_life.run!()
     game_of_life
   end
@@ -122,5 +124,13 @@ class TestGameOfLife < MiniTest::Test
     game_of_life = setup_and_run_game_of_life(starting_world)
 
     assert(game_of_life.world.include?({:x => 3, :y => 4}), "The Con at 3,4 didn't survive!")
+  end
+
+  def test_a_con_with_two_neighbors_dies_after_two_iterations
+    starting_world = [{:x => 2, :y => 2}, { :x => 3, :y => 3 }, { :x => 4, :y => 4 }]
+
+    game_of_life = setup_and_run_game_of_life(starting_world, 2)
+
+    refute(game_of_life.world.include?({:x => 3, :y => 3}), "The Con at 3,3 did survive!")
   end
 end
