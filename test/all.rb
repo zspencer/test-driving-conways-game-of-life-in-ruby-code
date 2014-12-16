@@ -54,7 +54,7 @@ class Con
   end
 
   def neighbor?(con)
-    !(self == con) && (near?(:x, con) || near?(:y, con))
+    !(self == con) && (near?(:x, con) && near?(:y, con))
   end
 
   def near?(axis, con)
