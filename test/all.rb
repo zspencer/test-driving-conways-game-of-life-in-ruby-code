@@ -28,6 +28,8 @@ class World
   def next_generation
     next_cons = @cons.select do |con|
       con.survives?(self)
+    end + empty_spaces.select do |space|
+      neighbors(space).length == 3
     end
 
     World.new(next_cons)
@@ -37,6 +39,24 @@ class World
     @cons.select() do |con|
       current.neighbor?(con)
     end
+  end
+
+  def around(c)
+    spaces = []
+    (c.location[:x] - 1 .. c.location[:x] + 1).each do |x|
+      (c.location[:y] - 1 .. c.location[:y] + 1).each do |y|
+        spaces.push({:x => x, :y => y})
+      end
+    end
+    spaces
+  end
+
+  def empty_spaces
+    spaces = []
+    @cons.each do |c|
+      spaces = spaces + around(c)
+    end
+    spaces.uniq.map { |s| Con.new(s) }
   end
 
   def to_a
