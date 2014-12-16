@@ -11,7 +11,9 @@ class GameOfLife
   end
 
   def run!()
-    @world = (survives?() ? @world : [])
+    @world = @world.select do |con|
+      survives?(con)
+    end
   end
 
   def world()
@@ -20,13 +22,12 @@ class GameOfLife
 
   private
 
-  def survives?
-    neighbors().length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
-      neighbors().length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
+  def survives?(current)
+    neighbors(current).length == MAX_NUMBER_OF_NEIGHBORS_TO_SURVIVE ||
+      neighbors(current).length == MIN_NUMBER_OF_NEIGHBORS_TO_SURVIVE
   end
 
-  def neighbors
-    current = Con.new({ :x => 0, :y => 0 })
+  def neighbors(current)
     @world.select() do |con|
       current.neighbor?(con)
     end
@@ -40,7 +41,7 @@ class Con
   end
 
   def neighbor?(con)
-    ((-1..1).include?(con.location[:x]) || (-1..1).include?(con.location[:y])) &&
+    ((location[:x] - 1.. location[:x] + 1).include?(con.location[:x]) || (location[:y] - 1.. location[:y] + 1).include?(con.location[:y])) &&
       !(self == con)
   end
 
