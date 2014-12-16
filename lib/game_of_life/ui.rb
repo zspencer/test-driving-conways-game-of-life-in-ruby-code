@@ -6,7 +6,13 @@ class GameOfLife
     end
 
     def draw(world)
-      output = ["X"]
+      output = []
+      (0...@width).each do |x|
+        (0...@height).each do |y|
+          char = world.include?({ :x =>x, :y => y}) ? "X" : " "
+          output.push(char)
+        end
+      end
       output.join("\n")
     end
   end
