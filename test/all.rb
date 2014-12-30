@@ -1,7 +1,9 @@
 require 'minitest/autorun'
 
 class GameOfLife
+  def initialize(population)
 
+  end
 end
 
 class TestGameOfLife < MiniTest::Test
