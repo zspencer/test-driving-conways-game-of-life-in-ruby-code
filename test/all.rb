@@ -10,7 +10,7 @@ class GameOfLife
   end
 
   def population
-
+    []
   end
 end
 
