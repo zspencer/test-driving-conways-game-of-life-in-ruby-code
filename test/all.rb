@@ -4,6 +4,10 @@ class GameOfLife
   def initialize(population)
 
   end
+
+  def run(days)
+
+  end
 end
 
 class TestGameOfLife < MiniTest::Test
