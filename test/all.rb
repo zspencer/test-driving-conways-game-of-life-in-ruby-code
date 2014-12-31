@@ -8,6 +8,10 @@ class GameOfLife
   def run(days)
 
   end
+
+  def population
+
+  end
 end
 
 class TestGameOfLife < MiniTest::Test
